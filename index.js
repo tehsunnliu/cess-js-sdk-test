@@ -2,11 +2,11 @@ const { File, Authorize, InitAPI, Territory } = require("cess-js-sdk-nodejs");
 
 const Mnemonic = "bottom drive obey lake curtain smoke basket hold race lonely fit walk";
 const MyAddress = "cXgaee2N8E77JJv9gdsGAckv1Qsf3hqWYf7NL4q6ZuQzuAUtB";
-const TerritoryName = "t0";
+const TerritoryName = "t2";
 const BucketName = "jsbucket";
 
 const { join: joinPath, resolve: resolvePath } = require("node:path");
-const LICENSE_PATH = resolvePath(joinPath(__dirname, "LICENSE"));
+const LICENSE_PATH = resolvePath(joinPath(__dirname, "LICENSE.txt"));
 
 const config = {
     nodeURL: [
@@ -15,7 +15,7 @@ const config = {
     ],
     gatewayURL: "https://deoss-sgp.cess.network",
     gatewayAddr: "cXf3X3ugTnivQA9iDRYmLNzxSqybgDtpStBjFcBZEoH33UVaz",
-    keyringOption: { type: "sr25519", ss58Format: 42 }
+    keyringOption: { type: "sr25519", ss58Format: 11330 }
 };
 
 async function main() {
@@ -51,25 +51,26 @@ async function main() {
     }
     if (!territoryExists) {
         console.log("createTerritory:", config.gatewayAddr);
-        result = await territory.createTerritory(Mnemonic, TerritoryName, 1, 30, console.log);
+        result = await territory.createTerritory(Mnemonic, TerritoryName, 10, 30, console.log);
         console.log(result, "\n");
     }
 
 
     // Upload File
-    console.log("Uploading File...");
+    console.log("Uploading File...", LICENSE_PATH);
     const cessFile = new File(api, keyring, config.gatewayURL, true);
+
+
     result = await cessFile.uploadFile(
         Mnemonic,
         LICENSE_PATH,
         TerritoryName,
-        (status) => console.log(status)
+        (status) => console.log("Status: ", status)
     );
-    if (result.msg !== "ok") {
-        console.error("Error:", result);
-        return;
-    }
-    const fileId = result.data;
+
+    console.log("Result:", result);
+
+    const fileId = result.fid;
     console.log("File Uploaded Successfully:", fileId);
 
     // Download File

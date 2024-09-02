@@ -9,6 +9,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "cess-js-sdk-nodejs": "^0.2.4"
+        "cess-js-sdk-nodejs": "^0.2.6"
     }
 }
