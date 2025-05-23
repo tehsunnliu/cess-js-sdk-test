@@ -9,6 +9,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "cess-js-sdk-nodejs": "^0.2.6"
+        "cess-js-sdk-nodejs": "https://github.com/CESSProject/cess-js-sdk-nodejs"
     }
 }
